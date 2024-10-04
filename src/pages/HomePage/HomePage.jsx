@@ -1,3 +1,9 @@
+import style from "./HomePage.module.css";
+
 export default function HomePage() {
-  return <h1>Welcome to the Contact Manager App!</h1>;
+  return (
+    <div className={style.wrapper}>
+      <p className={style.mainText}>Contacts Manager</p>
+    </div>
+  );
 }

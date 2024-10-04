@@ -1,22 +1,33 @@
-import { useDispatch } from "react-redux";
+import { BsFillPersonFill, BsFillTelephoneFill } from "react-icons/bs";
 import { deleteContact } from "../../redux/contacts/operations";
-import styles from "./Contact.module.css";
+import style from "./Contact.module.css";
+import { useDispatch } from "react-redux";
 
 export default function Contact({ contact }) {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
-  };
+  function handleClick(id) {
+    dispatch(deleteContact(id));
+  }
 
   return (
-    <div className={styles.contact}>
-      <span>
-        <span className={styles.icon}>👤</span>
-        <span className={styles.name}>{contact.name}</span>
-      </span>
-      <span className={styles.number}>{contact.number}</span>
-      <button className={styles.button} onClick={handleDelete}>
+    <div className={style.contact}>
+      <div className={style.contactInfo}>
+        <p className={style.contactName}>
+          <BsFillPersonFill />
+          &nbsp;
+          {contact.name}
+        </p>
+        <p className={style.contactTel}>
+          <BsFillTelephoneFill />
+          &nbsp;
+          <a href={`tel:${contact.number}`}>{contact.number}</a>
+        </p>
+      </div>
+      <button
+        className={style.contactDeleteBtn}
+        onClick={() => handleClick(contact.id)}
+      >
         Delete
       </button>
     </div>

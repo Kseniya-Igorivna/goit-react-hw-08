@@ -18,47 +18,44 @@ const RegistrationPage = lazy(() =>
 
 export default function App() {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
+  const isRefreshing = useSelector(selectIsRefreshing);
+
   return isRefreshing ? (
-    <p>Refreshing user...</p>
+    <Loader />
   ) : (
-    <Suspense fallback={<p>Loading...</p>}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+    <Layout>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route
-            path="contacts"
-            element={
-              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
-            }
-          />
-          <Route
-            path="register"
+            path="/register"
             element={
               <RestrictedRoute
-                redirectTo="/contacts"
                 component={<RegistrationPage />}
+                redirectTo="/"
               />
             }
           />
           <Route
-            path="login"
+            path="/login"
             element={
-              <RestrictedRoute
-                redirectTo="/contacts"
-                component={<LoginPage />}
-              />
+              <RestrictedRoute component={<LoginPage />} redirectTo="/" />
             }
           />
-          {}
-          <Route path="*" element={<p>Page Not Found</p>} />
-        </Route>
-      </Routes>
-    </Suspense>
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute component={<ContactsPage />} redirectTo="/login" />
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </Layout>
   );
 }
