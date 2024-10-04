@@ -10,10 +10,10 @@
 
 .navLink:hover,
 .navLink:focus {
-  color: #3368f1;
+  color: #0f621e;
 }
 
 .navLink.isActive {
   font-weight: 700;
-  color: #0a3dca;
+  color: #6904b0;
 }

@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import AppBar from "../AppBar/AppBar";
 import style from "./Layout.module.css";
 
